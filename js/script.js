@@ -76,6 +76,7 @@ function toggleMenu(id) {
       const nombre = nombreInput.value.trim();
       const todosMarcados = Array.from(checks).every(cb => cb.checked);
       btn.disabled = !(nombre && todosMarcados);
+    btn.classList.toggle('disabled', btn.disabled);
     }
   
     nombreInput.addEventListener('change', validarFormulario);

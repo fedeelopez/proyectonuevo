@@ -135,6 +135,12 @@ body {
   background-color: #1d4ed8;
 }
 
+.btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
 .alerta-ok {
   background-color: #16a34a;
 }
