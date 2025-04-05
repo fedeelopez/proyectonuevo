@@ -65,7 +65,7 @@ function toggleMenu(id) {
       </div>
       <div id="contenedorAlertas"></div>
     `;
-}
+  }
   
   // El resto del código no cambia
   
