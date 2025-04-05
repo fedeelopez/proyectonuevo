@@ -171,7 +171,7 @@ function cargarPagina(pagina) {
         contenedorAlertas.prepend(alerta);
 
         timeoutInicio = setTimeout(() => {
-          alerta.innerHTML += '<p class="cancelado">⚠️ No se inició la fabricación en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
+          alerta.innerHTML += '<p class="cancelado">⚠️ No se inició la fabricación en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
 window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN", "_blank");
           // Aquí podrías agregar un envío a WhatsApp o email
         }, 40000);
@@ -191,7 +191,7 @@ window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el
           contenedorAlertas.prepend(nuevaAlerta);
 
           timeoutPreparar = setTimeout(() => {
-            nuevaAlerta.innerHTML += '<p class="cancelado">⚠️ No se preparó la máquina a tiempo.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
+            nuevaAlerta.innerHTML += '<p class="cancelado">⚠️ No se preparó la máquina a tiempo.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
 window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA", "_blank");
             // Aquí podrías agregar un envío a WhatsApp o email
           }, 120000);
@@ -211,7 +211,7 @@ window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el
             contenedorAlertas.prepend(alertaLiberacion);
 
             timeoutLiberar = setTimeout(() => {
-              alertaLiberacion.innerHTML += '<p class="cancelado">⚠️ No se liberó el producto en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
+              alertaLiberacion.innerHTML += '<p class="cancelado">⚠️ No se liberó el producto en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
 window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO", "_blank");
               // Aquí podrías agregar un envío a WhatsApp o email
             }, 60000);
