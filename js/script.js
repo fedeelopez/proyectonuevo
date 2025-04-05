@@ -210,7 +210,7 @@ window.open("https://wa.me/5491134567890?text=🚨 El operario no avanzó con el
 
             timeoutLiberar = setTimeout(() => {
               alertaLiberacion.innerHTML += '<p class="cancelado">⚠️ No se liberó el producto en el tiempo establecido.</p>';
-window.open("https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO", "_blank");
+window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO", "_blank");
               // Aquí podrías agregar un envío a WhatsApp o email
             }, 120000);
 
