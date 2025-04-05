@@ -34,7 +34,7 @@ function toggleMenu(id) {
       cantidad: 250
     };
   
-    const operarios = ["Gustavo", "Angel", "Dario", "Federico", "Fernando"];
+    const operarios = ["Carlos Pérez", "Ana Torres", "Julián Díaz", "Mariana Ruiz", "Luciano Gómez"];
     const opciones = operarios.map(nombre => `<option value="${nombre}">${nombre}</option>`).join('');
   
     return `
@@ -48,10 +48,10 @@ function toggleMenu(id) {
   
         <h3>Checklist de Confirmación</h3>
         <ul class="checklist">
-          <li><label><input type="checkbox"> Confirmación de materia prima</label></li>
-          <li><label><input type="checkbox"> Herramientas disponibles</label></li>
-          <li><label><input type="checkbox"> Parámetros de máquina verificados</label></li>
-          <li><label><input type="checkbox"> Seguridad validada</label></li>
+          <li><label><input type="checkbox" class="check-item"> Confirmación de materia prima</label></li>
+          <li><label><input type="checkbox" class="check-item"> Herramientas disponibles</label></li>
+          <li><label><input type="checkbox" class="check-item"> Parámetros de máquina verificados</label></li>
+          <li><label><input type="checkbox" class="check-item"> Seguridad validada</label></li>
         </ul>
   
         <div style="margin-top: 1rem;">
@@ -61,9 +61,26 @@ function toggleMenu(id) {
             ${opciones}
           </select>
         </div>
-        <button id="confirmarOrdenBtn" class="btn" style="margin-top: 0.5rem;">Confirmar Orden</button>
+        <button id="confirmarOrdenBtn" class="btn" style="margin-top: 0.5rem;" disabled>Confirmar Orden</button>
       </div>
       <div id="contenedorAlertas"></div>
+  
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const btn = document.getElementById('confirmarOrdenBtn');
+          const nombreInput = document.getElementById('nombreOperario');
+          const checks = document.querySelectorAll('.check-item');
+  
+          function validarFormulario() {
+            const nombre = nombreInput.value.trim();
+            const todosMarcados = Array.from(checks).every(cb => cb.checked);
+            btn.disabled = !(nombre && todosMarcados);
+          }
+  
+          nombreInput.addEventListener('change', validarFormulario);
+          checks.forEach(cb => cb.addEventListener('change', validarFormulario));
+        });
+      </script>
     `;
   }
   
@@ -76,15 +93,19 @@ function toggleMenu(id) {
     if (pagina === 'operaciones-dashboard') {
       html = generarOrdenTrabajo();
       contenido.innerHTML = html;
+      const scriptTag = contenido.querySelector('script');
+      if (scriptTag) {
+        eval(scriptTag.innerText);
+      }
   
       const btn = document.getElementById('confirmarOrdenBtn');
       if (btn) {
         btn.addEventListener('click', () => {
           const nombre = document.getElementById('nombreOperario').value;
-          if (!nombre) {
-            alert('Por favor seleccione su nombre antes de confirmar la orden.');
-            return;
-          }
+          const checkboxes = document.querySelectorAll('.check-item');
+          const todosMarcados = Array.from(checkboxes).every(cb => cb.checked);
+  
+          if (!nombre || !todosMarcados) return;
   
           btn.disabled = true;
           btn.innerText = `Orden Confirmada por ${nombre} ✅`;
@@ -171,3 +192,4 @@ function toggleMenu(id) {
       contenido.innerHTML = html;
     }
   }
+  
