@@ -46,7 +46,7 @@ function toggleMenu(id) {
         <p><strong>Número de Pieza:</strong> ${orden.pieza}</p>
         <p><strong>Lote:</strong> ${orden.lote}</p>
         <p><strong>Maquina:</strong> ${orden.maquina}</p>
-        p><strong>Matriz:</strong> ${orden.matriz}</p>
+        <p><strong>Matriz:</strong> ${orden.matriz}</p>
         <p><strong>Materia Prima:</strong> ${orden.materiaPrima}</p>
         <p><strong>Cantidad a Realizar:</strong> ${orden.cantidad}</p>
         
