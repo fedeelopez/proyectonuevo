@@ -92,7 +92,7 @@ function toggleMenu(id) {
     if (pagina === 'operaciones-dashboard') {
       html = generarOrdenTrabajo();
       contenido.innerHTML = html;
-      configurarValidacionFormulario();
+      setTimeout(configurarValidacionFormulario, 0);
   
       const btn = document.getElementById('confirmarOrdenBtn');
       if (btn) {
