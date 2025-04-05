@@ -64,24 +64,23 @@ function toggleMenu(id) {
         <button id="confirmarOrdenBtn" class="btn" style="margin-top: 0.5rem;" disabled>Confirmar Orden</button>
       </div>
       <div id="contenedorAlertas"></div>
-  
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const btn = document.getElementById('confirmarOrdenBtn');
-          const nombreInput = document.getElementById('nombreOperario');
-          const checks = document.querySelectorAll('.check-item');
-  
-          function validarFormulario() {
-            const nombre = nombreInput.value.trim();
-            const todosMarcados = Array.from(checks).every(cb => cb.checked);
-            btn.disabled = !(nombre && todosMarcados);
-          }
-  
-          nombreInput.addEventListener('change', validarFormulario);
-          checks.forEach(cb => cb.addEventListener('change', validarFormulario));
-        });
-      </script>
     `;
+  }
+  
+  function configurarValidacionFormulario() {
+    const btn = document.getElementById('confirmarOrdenBtn');
+    const nombreInput = document.getElementById('nombreOperario');
+    const checks = document.querySelectorAll('.check-item');
+  
+    function validarFormulario() {
+      const nombre = nombreInput.value.trim();
+      const todosMarcados = Array.from(checks).every(cb => cb.checked);
+      btn.disabled = !(nombre && todosMarcados);
+    }
+  
+    nombreInput.addEventListener('change', validarFormulario);
+    checks.forEach(cb => cb.addEventListener('change', validarFormulario));
+    validarFormulario();
   }
   
   function cargarPagina(pagina) {
@@ -93,10 +92,7 @@ function toggleMenu(id) {
     if (pagina === 'operaciones-dashboard') {
       html = generarOrdenTrabajo();
       contenido.innerHTML = html;
-      const scriptTag = contenido.querySelector('script');
-      if (scriptTag) {
-        eval(scriptTag.innerText);
-      }
+      configurarValidacionFormulario();
   
       const btn = document.getElementById('confirmarOrdenBtn');
       if (btn) {
