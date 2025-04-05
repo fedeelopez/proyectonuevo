@@ -34,7 +34,7 @@ function toggleMenu(id) {
       cantidad: 250
     };
   
-    const operarios = ["Carlos Pérez", "Ana Torres", "Julián Díaz", "Mariana Ruiz", "Luciano Gómez"];
+    const operarios = ["Gustavo", "Angel", "Dario", "Federico", "Fernando"];
     const opciones = operarios.map(nombre => `<option value="${nombre}">${nombre}</option>`).join('');
   
     return `
