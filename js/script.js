@@ -157,7 +157,11 @@ function cargarPagina(pagina) {
 
         const contenedorAlertas = document.getElementById('contenedorAlertas');
 
-        const alerta = document.createElement('div');
+        let timeoutInicio;
+    let timeoutPreparar;
+    let timeoutLiberar;
+
+    const alerta = document.createElement('div');
         alerta.classList.add('alerta-inicio');
         alerta.innerHTML = `
           <h3>¿Iniciar fabricación?</h3>
@@ -166,6 +170,13 @@ function cargarPagina(pagina) {
         `;
         contenedorAlertas.prepend(alerta);
 
+        timeoutInicio = setTimeout(() => {
+          alerta.innerHTML += '<p class="cancelado">⚠️ No se inició la fabricación en el tiempo establecido.</p>';
+window.open("https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN", "_blank");
+          // Aquí podrías agregar un envío a WhatsApp o email
+        }, 120000);
+
+        clearTimeout(timeoutInicio);
         alerta.querySelector('#btnInicioOK').addEventListener('click', () => {
           alerta.innerHTML = '<p class="ok">🚀 Fabricación iniciada correctamente.</p>';
 
@@ -178,6 +189,13 @@ function cargarPagina(pagina) {
           `;
           contenedorAlertas.prepend(nuevaAlerta);
 
+          timeoutPreparar = setTimeout(() => {
+            nuevaAlerta.innerHTML += '<p class="cancelado">⚠️ No se preparó la máquina a tiempo.</p>';
+window.open("https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA", "_blank");
+            // Aquí podrías agregar un envío a WhatsApp o email
+          }, 120000);
+
+          clearTimeout(timeoutPreparar);
           nuevaAlerta.querySelector('#btnPrepOK').addEventListener('click', () => {
             nuevaAlerta.innerHTML = '<p class="ok">🛠️ Preparación de máquina completada.</p>';
 
@@ -190,6 +208,13 @@ function cargarPagina(pagina) {
             `;
             contenedorAlertas.prepend(alertaLiberacion);
 
+            timeoutLiberar = setTimeout(() => {
+              alertaLiberacion.innerHTML += '<p class="cancelado">⚠️ No se liberó el producto en el tiempo establecido.</p>';
+window.open("https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO", "_blank");
+              // Aquí podrías agregar un envío a WhatsApp o email
+            }, 120000);
+
+            clearTimeout(timeoutLiberar);
             alertaLiberacion.querySelector('#btnLibOK').addEventListener('click', () => {
               alertaLiberacion.innerHTML = '<p class="ok">📦 Producto liberado exitosamente.</p>';
 
