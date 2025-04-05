@@ -174,7 +174,7 @@ function cargarPagina(pagina) {
           alerta.innerHTML += '<p class="cancelado">⚠️ No se inició la fabricación en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
 window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN", "_blank");
           // Aquí podrías agregar un envío a WhatsApp o email
-        }, 120000);
+        }, 40000);
 
         
         alerta.querySelector('#btnInicioOK').addEventListener('click', () => {
