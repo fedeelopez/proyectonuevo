@@ -1,85 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de Planta</title>
-    <!-- <link rel="shortcut icon" href="./assets/logo_vaer.png" type="image/x-icon"> -->
-    <link rel="stylesheet" href="./css/styles.css" />
-  </head>
-  <body>
-    <header class="header">
-      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-      <img src="./assets/logo_vaer.png" alt="Logo Empresa" class="logo" />
-    </header>
-    <div class="app">
-      <aside class="sidebar" id="sidebar">
-        <div class="menu-group">
-          <button class="menu-toggle" onclick="toggleMenu('mantenimiento-menu')">Mantenimiento</button>
-          <div id="mantenimiento-menu" class="submenu hidden">
-            <a href="#" onclick="cargarPagina('dashboard')">Dashboard</a>
-            <a href="#" onclick="cargarPagina('orders')">Órdenes</a>
-            <a href="#" onclick="cargarPagina('planning')">Planificación</a>
-            <a href="#" onclick="cargarPagina('inventory')">Repuestos</a>
-            <a href="#" onclick="cargarPagina('indicators')">Indicadores</a>
-            <a href="#" onclick="cargarPagina('resources')">Recursos</a>
-            <a href="#" onclick="cargarPagina('reportes')">Reportes</a>
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Planta</title>
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <header class="header">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <img src="./assets/logo_vaer.png" alt="Logo Empresa" class="logo" />
+  </header>
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <!-- Mantenimiento -->
+      <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleMenu('mantenimiento-menu')">Mantenimiento</button>
+        <div id="mantenimiento-menu" class="submenu hidden">
+          <a href="#" onclick="cargarPagina('dashboard')">Dashboard</a>
+          <a href="#" onclick="cargarPagina('orders')">Órdenes</a>
+          <a href="#" onclick="cargarPagina('planning')">Planificación</a>
+          <a href="#" onclick="cargarPagina('inventory')">Repuestos</a>
+          <a href="#" onclick="cargarPagina('indicators')">Indicadores</a>
+          <a href="#" onclick="cargarPagina('resources')">Recursos</a>
+          <a href="#" onclick="cargarPagina('reports')">Reportes</a>
         </div>
-        <div class="menu-group">
-          <button class="menu-toggle" onclick="toggleMenu('matriceria-menu')">Matricería</button>
-          <div id="matriceria-menu" class="submenu hidden">
-            <a href="#" onclick="cargarPagina('tooling-dashboard')">Dashboard</a>
-            <a href="#" onclick="cargarPagina('production-orders')">Órdenes de Fabricación</a>
-            <a href="#" onclick="cargarPagina('tooling-management')">Gestión de Herramentales</a>
-            <a href="#" onclick="cargarPagina('tooling-maintenance')">Mantenimiento</a>
-            <a href="#" onclick="cargarPagina('tooling-interventions')">Intervenciones</a>
-            <a href="#" onclick="cargarPagina('tooling-alerts')">Alertas</a>
-            <a href="#" onclick="cargarPagina('tooling-history')">Historial</a>
-            <a href="#" onclick="cargarPagina('tooling-parts')">Repuestos</a>
-            <a href="#" onclick="cargarPagina('tooling-indicators')">Indicadores</a>
-            <a href="#" onclick="cargarPagina('tooling-reports')">Informes</a>
-          </div>
+      </div>
+
+      <!-- Matricería -->
+      <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleMenu('matriceria-menu')">Matricería</button>
+        <div id="matriceria-menu" class="submenu hidden">
+          <a href="#" onclick="cargarPagina('tooling-dashboard')">Dashboard</a>
+          <a href="#" onclick="cargarPagina('production-orders')">Órdenes de Fabricación</a>
+          <a href="#" onclick="cargarPagina('tooling-management')">Gestión de Herramentales</a>
+          <a href="#" onclick="cargarPagina('tooling-maintenance')">Mantenimiento</a>
+          <a href="#" onclick="cargarPagina('tooling-interventions')">Intervenciones</a>
+          <a href="#" onclick="cargarPagina('tooling-alerts')">Alertas</a>
+          <a href="#" onclick="cargarPagina('tooling-history')">Historial</a>
+          <a href="#" onclick="cargarPagina('tooling-parts')">Repuestos</a>
+          <a href="#" onclick="cargarPagina('tooling-indicators')">Indicadores</a>
+          <a href="#" onclick="cargarPagina('tooling-reports')">Informes</a>
         </div>
-        <div class="menu-group">
-          <button class="menu-toggle" onclick="toggleMenu('logistica-menu')">Logística e Inventarios</button>
-          <div id="logistica-menu" class="submenu hidden">
-            <a href="#" onclick="cargarPagina('logistica-dashboard')">Dashboard</a>
-            <a href="#" onclick="cargarPagina('entrada-materiales')">Entrada de Materiales</a>
-            <a href="#" onclick="cargarPagina('inventario-proceso')">Inventario en Proceso</a>
-            <a href="#" onclick="cargarPagina('devoluciones')">Devoluciones</a>
-            <a href="#" onclick="cargarPagina('recepcion-producto')">Recepción Producto Final</a>
-            <a href="#" onclick="cargarPagina('gestion-inventario')">Gestión de Inventario</a>
-            <a href="#" onclick="cargarPagina('proveedores-compras')">Proveedores y Compras</a>
-            <a href="#" onclick="cargarPagina('indicadores-logisticos')">Indicadores</a>
-            <a href="#" onclick="cargarPagina('informes-logistica')">Informes</a>
-          </div>
+      </div>
+
+      <!-- Logística e Inventarios -->
+      <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleMenu('logistica-menu')">Logística e Inventarios</button>
+        <div id="logistica-menu" class="submenu hidden">
+          <a href="#" onclick="cargarPagina('logistica-dashboard')">Dashboard</a>
+          <a href="#" onclick="cargarPagina('entrada-materiales')">Entrada de Materiales</a>
+          <a href="#" onclick="cargarPagina('inventario-proceso')">Inventario en Proceso</a>
+          <a href="#" onclick="cargarPagina('devoluciones')">Devoluciones</a>
+          <a href="#" onclick="cargarPagina('recepcion-producto')">Recepción Producto Final</a>
+          <a href="#" onclick="cargarPagina('gestion-inventario')">Gestión de Inventario</a>
+          <a href="#" onclick="cargarPagina('proveedores-compras')">Proveedores y Compras</a>
+          <a href="#" onclick="cargarPagina('indicadores-logisticos')">Indicadores</a>
+          <a href="#" onclick="cargarPagina('informes-logistica')">Informes</a>
         </div>
-        <div class="menu-group">
-          <button class="menu-toggle" onclick="toggleMenu('operaciones-menu')">Operaciones</button>
-          <div id="operaciones-menu" class="submenu hidden">
-            <a href="#" onclick="cargarPagina('operaciones-dashboard')">Dashboard</a>
-            <a href="#" onclick="cargarPagina('parametros-control')">Parámetros de Control</a>
-            <a href="#" onclick="cargarPagina('liberacion-operacion')">Liberación de Operación</a>
-            <a href="#" onclick="cargarPagina('control-produccion')">Control de Producción</a>
-            <a href="#" onclick="cargarPagina('resultados-calidad')">Resultados de Calidad</a>
-            <a href="#" onclick="cargarPagina('orden-limpieza')">Orden y Limpieza</a>
-            <a href="#" onclick="cargarPagina('tpm')">TPM</a>
-            <a href="#" onclick="cargarPagina('historial-operaciones')">Historial</a>
-            <a href="#" onclick="cargarPagina('indicadores-operaciones')">Indicadores</a>
-            <a href="#" onclick="cargarPagina('informes-operaciones')">Informes</a>
-          </div>
+      </div>
+
+      <!-- Operaciones -->
+      <div class="menu-group">
+        <button class="menu-toggle" onclick="toggleMenu('operaciones-menu')">Operaciones</button>
+        <div id="operaciones-menu" class="submenu hidden">
+          <a href="#" onclick="cargarPagina('operaciones-dashboard')">Dashboard</a>
+          <a href="#" onclick="cargarPagina('parametros-control')">Parámetros de Control</a>
+          <a href="#" onclick="cargarPagina('liberacion-operacion')">Liberación de Operación</a>
+          <a href="#" onclick="cargarPagina('control-produccion')">Control de Producción</a>
+          <a href="#" onclick="cargarPagina('resultados-calidad')">Resultados de Calidad</a>
+          <a href="#" onclick="cargarPagina('orden-limpieza')">Orden y Limpieza</a>
+          <a href="#" onclick="cargarPagina('tpm')">TPM</a>
+          <a href="#" onclick="cargarPagina('historial-operaciones')">Historial</a>
+          <a href="#" onclick="cargarPagina('indicadores-operaciones')">Indicadores</a>
+          <a href="#" onclick="cargarPagina('informes-operaciones')">Informes</a>
         </div>
-      </aside>
-      <main class="content" id="contenido">
-        <h2>Bienvenido</h2>
-        <p>Seleccioná una opción del menú para comenzar.</p>
-      </main>
-    </div>
-    <script src="./js/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  </body>
+      </div>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="content" id="contenido">
+      <h2>Bienvenido</h2>
+      <p>Seleccioná una opción del menú para comenzar.</p>
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
 </html>
