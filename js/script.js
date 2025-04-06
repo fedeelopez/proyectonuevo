@@ -11,7 +11,7 @@ function toggleSidebar() {
 let usuarioActivo = null;
 
 const usuarios = [
-  { documento: '9999', nombre: 'Gerente General', area: 'todos' },
+  { documento: '9999', nombre: 'Gustavo Amarilla', area: 'todos' },
   { documento: '1111', nombre: 'Carlos Pérez', area: 'operaciones' },
   { documento: '2222', nombre: 'Ana Torres', area: 'mantenimiento' },
   { documento: '3333', nombre: 'Mariana Ruiz', area: 'matriceria' },
