@@ -93,7 +93,7 @@ function generarOrdenTrabajo() {
       <p><strong>Materia Prima:</strong> ${orden.materiaPrima}</p>
       <p><strong>Cantidad a Realizar:</strong> ${orden.cantidad}</p>
 
-      <h3>Checklist de Confirmación</h3>
+      <h3 style="padding-top: 1rem;">Checklist de Confirmación</h3>
       <ul class="checklist">
         <li><label><input type="checkbox" class="check-item"> Confirmación de materia prima</label></li>
         <li><label><input type="checkbox" class="check-item"> Herramientas disponibles</label></li>
@@ -171,10 +171,10 @@ function cargarPagina(pagina) {
         contenedorAlertas.prepend(alerta);
 
         timeoutInicio = setTimeout(() => {
-          alerta.innerHTML += '<p class="cancelado">⚠️ No se inició la fabricación en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
-window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN", "_blank");
+          alerta.innerHTML += '<p class="cancelado">⚠️ No se inició la fabricación en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
+window.open("https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso INICIAR FABRICACIÓN", "_blank");
           // Aquí podrías agregar un envío a WhatsApp o email
-        }, 40000);
+        }, 120000);
 
         
         alerta.querySelector('#btnInicioOK').addEventListener('click', () => {
@@ -191,8 +191,8 @@ window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el
           contenedorAlertas.prepend(nuevaAlerta);
 
           timeoutPreparar = setTimeout(() => {
-            nuevaAlerta.innerHTML += '<p class="cancelado">⚠️ No se preparó la máquina a tiempo.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
-window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA", "_blank");
+            nuevaAlerta.innerHTML += '<p class="cancelado">⚠️ No se preparó la máquina a tiempo.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
+window.open("https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso PREPARAR LA MÁQUINA", "_blank");
             // Aquí podrías agregar un envío a WhatsApp o email
           }, 120000);
 
@@ -211,7 +211,7 @@ window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el
             contenedorAlertas.prepend(alertaLiberacion);
 
             timeoutLiberar = setTimeout(() => {
-              alertaLiberacion.innerHTML += '<p class="cancelado">⚠️ No se liberó el producto en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
+              alertaLiberacion.innerHTML += '<p class="cancelado">⚠️ No se liberó el producto en el tiempo establecido.</p><button class="btn alerta-ok" onclick="window.open(\'https://wa.me/5491134567890?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO\', \'_blank\')">📲 Enviar alerta por WhatsApp</button>';
 window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el paso LIBERAR PRODUCTO", "_blank");
               // Aquí podrías agregar un envío a WhatsApp o email
             }, 60000);
@@ -260,7 +260,50 @@ window.open("https://wa.me/5491124582012?text=🚨 El operario no avanzó con el
       });
     }
   } else {
-    html = `<h2>${pagina.replace(/-/g, ' ').toUpperCase()}</h2><p>Contenido en construcción para esta sección.</p>`;
+    if (pagina === 'matriceria-dashboard') {
+      html = `
+        <h2>Dashboard de Matricería</h2>
+        <div class="cards-container">
+          <div class="card"><h3>Órdenes Activas</h3><p class="value">5</p><p class="status ok">En ejecución</p></div>
+          <div class="card"><h3>Moldes en Mantenimiento</h3><p class="value">2</p><p class="status warning">Intervenciones activas</p></div>
+          <div class="card"><h3>Alerta por Piezas Producidas</h3><p class="value">1</p><p class="status warning">Intervención próxima</p></div>
+          <div class="card"><h3>Herramientales OK</h3><p class="value">12</p><p class="status ok">Disponibles</p></div>
+        </div>
+        <table class="data-table">
+          <thead>
+            <tr><th>Herramental</th><th>Tipo</th><th>Estado</th><th>Producción Acumulada</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Molde A23</td><td>Inyección</td><td>Activo</td><td>5,200</td></tr>
+            <tr><td>Matriz M19</td><td>Estampado</td><td>En reparación</td><td>2,870</td></tr>
+            <tr><td>Dispositivo D44</td><td>Especial</td><td>Disponible</td><td>7,300</td></tr>
+          </tbody>
+        </table>
+      `;
+    } else if (pagina === 'mantenimiento-dashboard') {
+      html = `
+        <h2>Dashboard de Mantenimiento</h2>
+        <div class="cards-container">
+          <div class="card"><h3>Órdenes Abiertas</h3><p class="value">18</p><p class="status warning">En progreso</p></div>
+          <div class="card"><h3>MTTR</h3><p class="value">2.3 h</p><p class="status ok">Dentro del estándar</p></div>
+          <div class="card"><h3>MTBF</h3><p class="value">45 h</p><p class="status ok">Buena fiabilidad</p></div>
+          <div class="card"><h3>Plan Preventivo</h3><p class="value">92%</p><p class="status ok">Cumplido</p></div>
+        </div>
+      `;
+    } else if (pagina === 'logistica-dashboard') {
+      html = `
+        <h2>Dashboard de Logística e Inventarios</h2>
+        <div class="cards-container">
+          <div class="card"><h3>Materias Primas</h3><p class="value">320</p><p class="status ok">Stock OK</p></div>
+          <div class="card"><h3>Alertas de Reposición</h3><p class="value">4</p><p class="status warning">Atención urgente</p></div>
+          <div class="card"><h3>Órdenes en Proceso</h3><p class="value">6</p><p class="status info">Pendientes</p></div>
+          <div class="card"><h3>Devoluciones</h3><p class="value">3</p><p class="status info">En revisión</p></div>
+        </div>
+      `;
+    } else {
+      html = `<h2>${pagina.replace(/-/g, ' ').toUpperCase()}</h2><p>Contenido en construcción para esta sección.</p>`;
+    }
+    contenido.innerHTML = html;
     contenido.innerHTML = html;
   }
 }
