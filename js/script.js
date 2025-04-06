@@ -11,6 +11,7 @@ function toggleSidebar() {
 let usuarioActivo = null;
 
 const usuarios = [
+  { documento: '9999', nombre: 'Gerente General', area: 'todos' },
   { documento: '1111', nombre: 'Carlos Pérez', area: 'operaciones' },
   { documento: '2222', nombre: 'Ana Torres', area: 'mantenimiento' },
   { documento: '3333', nombre: 'Mariana Ruiz', area: 'matriceria' },
@@ -31,11 +32,31 @@ function mostrarLogin() {
 }
 
 function validarIngreso() {
+  const header = document.querySelector('.header');
   const doc = document.getElementById('docInput').value.trim();
   const user = usuarios.find(u => u.documento === doc);
   const mensaje = document.getElementById('mensajeLogin');
 
   if (user) {
+    const nombreSpan = document.createElement('span');
+    nombreSpan.textContent = `👤 ${user.nombre}`;
+    nombreSpan.style.marginLeft = 'auto';
+    nombreSpan.style.marginRight = '1rem';
+    nombreSpan.style.fontWeight = 'bold';
+
+    const logoutBtn = document.createElement('button');
+    logoutBtn.textContent = 'Cerrar sesión';
+    logoutBtn.className = 'btn';
+    logoutBtn.style.marginRight = '1rem';
+    logoutBtn.onclick = () => {
+      usuarioActivo = null;
+      document.getElementById('sidebar').style.display = 'none';
+      header.innerHTML = '<button class="menu-btn" onclick="toggleSidebar()">☰</button><img src="./assets/logo_vaer.png" alt="Logo Empresa" class="logo" />';
+      mostrarLogin();
+    };
+
+    header.appendChild(nombreSpan);
+    header.appendChild(logoutBtn);
     usuarioActivo = user;
     document.getElementById('sidebar').style.display = 'block';
     filtrarMenuPorArea(user.area);
@@ -49,8 +70,9 @@ function filtrarMenuPorArea(area) {
   const secciones = ['mantenimiento', 'matriceria', 'logistica', 'operaciones'];
   secciones.forEach(seccion => {
     const grupo = document.getElementById(`${seccion}-menu`).parentElement;
-    grupo.style.display = seccion === area ? 'block' : 'none';
+    grupo.style.display = area === 'todos' || seccion === area ? 'block' : 'none';
   });
+
 }
 
 mostrarLogin();
