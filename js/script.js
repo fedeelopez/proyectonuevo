@@ -225,6 +225,7 @@ function mostrarHistorialProduccion() {
   const contenedor = document.getElementById('contenido');
   const historialDiv = document.createElement('div');
   historialDiv.innerHTML = `<h3 style="margin-top: 2rem;">Historial de Producción</h3>`;
+
   if (historialProduccion.length > 0) {
     historialDiv.innerHTML += `
       <table class="data-table">
@@ -240,10 +241,32 @@ function mostrarHistorialProduccion() {
           `).join('')}
         </tbody>
       </table>
+      <button class="btn" onclick="generarPDFProduccion()" style="margin-top: 1rem;">📄 Descargar PDF</button>
     `;
   }
   contenedor.appendChild(historialDiv);
 }
+
+function generarPDFProduccion() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("Detalle de Producción", 20, 20);
+
+  doc.setFontSize(12);
+  let y = 35;
+  historialProduccion.forEach((item, i) => {
+    doc.text(`Fecha: ${item.fecha}`, 20, y);
+    doc.text(`Piezas OK: ${item.ok}`, 20, y + 10);
+    doc.text(`Scrap: ${item.scrap}`, 20, y + 20);
+    doc.text(`Observaciones: ${item.observaciones || '-'}`, 20, y + 30);
+    y += 45;
+  });
+
+  doc.save("detalle-produccion.pdf");
+}
+
 
 function cargarPagina(pagina) {
   const contenido = document.getElementById('contenido');
