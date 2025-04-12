@@ -91,6 +91,56 @@ function configurarChecklist() {
   nombreInput.addEventListener('change', validar);
   checkboxes.forEach(cb => cb.addEventListener('change', validar));
   validar();
+
+  btn.addEventListener('click', () => {
+    const contenedor = document.getElementById('contenido');
+    btn.disabled = true;
+    btn.textContent = '✅ Orden Confirmada';
+    mostrarAlertaProgresiva(
+      '¿Iniciar fabricación?',
+      () => mostrarAlertaProgresiva(
+        '¿Preparar la máquina?',
+        () => mostrarAlertaProgresiva(
+          '¿Liberar producto?',
+          () => mostrarFormularioProduccion(),
+          120000,
+          'El operario no avanzó con el paso LIBERAR PRODUCTO'
+        ),
+        120000,
+        'El operario no avanzó con el paso PREPARAR LA MÁQUINA'
+      ),
+      120000,
+      'El operario no avanzó con el paso INICIAR FABRICACIÓN'
+    );
+  });
+}
+
+function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhatsApp) {
+  const contenedor = document.getElementById('contenido');
+  const alerta = document.createElement('div');
+  alerta.className = 'alerta-inicio';
+  alerta.innerHTML = `
+    <h3>${titulo}</h3>
+    <button class="btn alerta-ok">✅ OK</button>
+    <button class="btn alerta-cancel">❌ Cancelar</button>
+  `;
+  contenedor.prepend(alerta);
+
+  const timeout = setTimeout(() => {
+    alerta.innerHTML += `<p class="cancelado">⚠️ El operario, no esta operando la maquina.</p>`;
+    window.open(`https://wa.me/5491155616045?text=🚨 ${mensajeWhatsApp}`, '_blank');
+  }, tiempoEspera);
+
+  alerta.querySelector('.alerta-ok').addEventListener('click', () => {
+    clearTimeout(timeout);
+    alerta.innerHTML = `<p class="ok">✅ ${titulo} completado.</p>`;
+    onConfirmar();
+  });
+
+  alerta.querySelector('.alerta-cancel').addEventListener('click', () => {
+    clearTimeout(timeout);
+    alerta.innerHTML = `<p class="cancelado">❌ ${titulo} cancelado.</p>`;
+  });
 }
 
 function mostrarFormularioProduccion() {
@@ -150,77 +200,4 @@ function mostrarHistorialProduccion() {
   contenedor.appendChild(historialDiv);
 }
 
-function cargarPagina(pagina) {
-  const sidebar = document.getElementById('sidebar');
-  sidebar.classList.remove('show');
-  const contenido = document.getElementById('contenido');
-  let html = '';
-
-  if (pagina === 'operaciones-dashboard') {
-    html = `
-      <h2>Dashboard de Operaciones</h2>
-      <div class="orden-trabajo">
-        <p><strong>Número OT:</strong> OT-${Math.floor(Math.random() * 10000)}</p>
-        <p><strong>Número de Pieza:</strong> PZA-1234</p>
-        <p><strong>Matriz:</strong> MOL-56</p>
-        <p><strong>Materia Prima:</strong> Polipropileno</p>
-        <p><strong>Cantidad a Realizar:</strong> 250</p>
-        <h3 style="padding-top: 1rem;">Checklist</h3>
-        <ul class="checklist">
-          <li><label><input type="checkbox" class="check-item"> Confirmación de materia prima</label></li>
-          <li><label><input type="checkbox" class="check-item"> Herramientas disponibles</label></li>
-          <li><label><input type="checkbox" class="check-item"> Parámetros de máquina verificados</label></li>
-          <li><label><input type="checkbox" class="check-item"> Seguridad validada</label></li>
-        </ul>
-        <div style="margin-top: 1rem;">
-          <label for="nombreOperario"><strong>Nombre del Operario:</strong></label><br />
-          <select id="nombreOperario" class="input-operario" style="margin-bottom: 1rem; padding: 0.5rem; width: 100%; max-width: 300px;">
-            <option value="">Seleccione un nombre</option>
-            <option value="Carlos Pérez">Carlos Pérez</option>
-            <option value="Ana Torres">Ana Torres</option>
-            <option value="Julián Díaz">Julián Díaz</option>
-            <option value="Mariana Ruiz">Mariana Ruiz</option>
-            <option value="Luciano Gómez">Luciano Gómez</option>
-          </select>
-        </div>
-        <button id="confirmarOrdenBtn" class="btn disabled" disabled>Confirmar Orden</button>
-        <div id="resultadoConfirmacion" style="margin-top: 1rem;"></div>
-      </div>
-    `;
-    contenido.innerHTML = html;
-    setTimeout(configurarChecklist, 100);
-    return;
-  }
-
-  contenido.innerHTML = html;
-}
-
-function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhatsApp) {
-  const contenedor = document.getElementById('contenido');
-  const alerta = document.createElement('div');
-  alerta.className = 'alerta-inicio';
-  alerta.innerHTML = `
-    <h3>${titulo}</h3>
-    <button class="btn alerta-ok">✅ OK</button>
-    <button class="btn alerta-cancel">❌ Cancelar</button>
-  `;
-  contenedor.prepend(alerta);
-
-  const timeout = setTimeout(() => {
-    alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
-    window.open(`https://wa.me/5491134567890?text=🚨 ${mensajeWhatsApp}`, '_blank');
-  }, tiempoEspera);
-
-  alerta.querySelector('.alerta-ok').addEventListener('click', () => {
-    clearTimeout(timeout);
-    alerta.innerHTML = `<p class="ok">✅ ${titulo} completado.</p>`;
-    onConfirmar();
-  });
-
-  alerta.querySelector('.alerta-cancel').addEventListener('click', () => {
-    clearTimeout(timeout);
-    alerta.innerHTML = `<p class="cancelado">❌ ${titulo} cancelado.</p>`;
-  });
-}
-
-mostrarLogin();
+// Fin del script actualizado
