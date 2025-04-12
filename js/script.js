@@ -169,7 +169,7 @@ function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhats
     <button class="btn alerta-ok">✅ OK</button>
     <button class="btn alerta-cancel">❌ Cancelar</button>
   `;
-  contenedor.prepend(alerta);
+  contenedor.appendChild(alerta);
 
     const timeout = setTimeout(() => {
     alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
