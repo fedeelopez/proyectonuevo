@@ -1,5 +1,47 @@
 // === Código JS completo con login, dashboards, orden de trabajo, checklist, alertas progresivas y nuevas funciones en Operaciones ===
 
+function generarOrdenTrabajo() {
+  const orden = {
+    numero: Math.floor(Math.random() * 90000) + 10000,
+    pieza: 'Pieza A-132',
+    lote: 'L-5849',
+    materiaPrima: 'Polipropileno',
+    cantidad: 250
+  };
+
+  const operarios = ["Carlos Pérez", "Ana Torres", "Julián Díaz", "Mariana Ruiz", "Luciano Gómez"];
+  const opciones = operarios.map(nombre => `<option value="${nombre}">${nombre}</option>`).join('');
+
+  return `
+    <h2>Orden de Trabajo</h2>
+    <div class="orden-trabajo">
+      <p><strong>Número OT:</strong> ${orden.numero}</p>
+      <p><strong>Número de Pieza:</strong> ${orden.pieza}</p>
+      <p><strong>Lote:</strong> ${orden.lote}</p>
+      <p><strong>Materia Prima:</strong> ${orden.materiaPrima}</p>
+      <p><strong>Cantidad a Realizar:</strong> ${orden.cantidad}</p>
+
+      <h3 style="padding-top: 1rem;">Checklist de Confirmación</h3>
+      <ul class="checklist">
+        <li><label><input type="checkbox" class="check-item"> Confirmación de materia prima</label></li>
+        <li><label><input type="checkbox" class="check-item"> Herramientas disponibles</label></li>
+        <li><label><input type="checkbox" class="check-item"> Parámetros de máquina verificados</label></li>
+        <li><label><input type="checkbox" class="check-item"> Seguridad validada</label></li>
+      </ul>
+
+      <div style="margin-top: 1rem;">
+        <label for="nombreOperario"><strong>Nombre del Operario:</strong></label><br />
+        <select id="nombreOperario" class="input-operario" style="margin-bottom: 1rem; padding: 0.5rem; width: 100%; max-width: 300px;">
+          <option value="">Seleccione un nombre</option>
+          ${opciones}
+        </select>
+      </div>
+      <button id="confirmarOrdenBtn" class="btn disabled" style="margin-top: 0.5rem;" disabled>Confirmar Orden</button>
+    </div>
+    <div id="contenedorAlertas"></div>
+  `;
+}
+
 const usuarios = [
   { documento: '9999', nombre: 'Gustavo Amarilla', area: 'todos' },
   { documento: '1111', nombre: 'Carlos Pérez', area: 'operaciones' },
