@@ -112,7 +112,8 @@ function configurarChecklist() {
       60000,
       'El operario no avanzó con el paso INICIAR FABRICACIÓN'
     );
-});
+  });
+}
 
 function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhatsApp) {
   const contenedor = document.getElementById('contenido');
@@ -127,7 +128,7 @@ function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhats
 
     const timeout = setTimeout(() => {
     alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
-    window.open(`https://wa.me/5491124582012?text=🚨 ${mensajeWhatsApp}`, '_blank');
+    window.open(`https://wa.me/5491134567890?text=🚨 ${mensajeWhatsApp}`, '_blank');
   }, tiempoEspera);
 
   alerta.querySelector('.alerta-ok').addEventListener('click', () => {
@@ -198,5 +199,5 @@ function mostrarHistorialProduccion() {
   }
   contenedor.appendChild(historialDiv);
 }
-}
+
 // Fin del script actualizado
