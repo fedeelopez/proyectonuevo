@@ -103,17 +103,16 @@ function configurarChecklist() {
         () => mostrarAlertaProgresiva(
           '¿Liberar producto?',
           () => mostrarFormularioProduccion(),
-          120000,
+          60000,
           'El operario no avanzó con el paso LIBERAR PRODUCTO'
         ),
-        120000,
+        60000,
         'El operario no avanzó con el paso PREPARAR LA MÁQUINA'
       ),
-      120000,
+      60000,
       'El operario no avanzó con el paso INICIAR FABRICACIÓN'
     );
-  });
-}
+});
 
 function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhatsApp) {
   const contenedor = document.getElementById('contenido');
@@ -126,9 +125,9 @@ function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhats
   `;
   contenedor.prepend(alerta);
 
-  const timeout = setTimeout(() => {
-    alerta.innerHTML += `<p class="cancelado">⚠️ El operario, no esta operando la maquina.</p>`;
-    window.open(`https://wa.me/5491155616045?text=🚨 ${mensajeWhatsApp}`, '_blank');
+    const timeout = setTimeout(() => {
+    alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
+    window.open(`https://wa.me/5491124582012?text=🚨 ${mensajeWhatsApp}`, '_blank');
   }, tiempoEspera);
 
   alerta.querySelector('.alerta-ok').addEventListener('click', () => {
@@ -199,5 +198,5 @@ function mostrarHistorialProduccion() {
   }
   contenedor.appendChild(historialDiv);
 }
-
+}
 // Fin del script actualizado
