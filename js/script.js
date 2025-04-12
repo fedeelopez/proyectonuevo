@@ -40,6 +40,9 @@ function validarIngreso() {
   const mensaje = document.getElementById('mensajeLogin');
 
   if (user) {
+    // Limpiar contenido del header antes de agregar nombre y botón
+    header.innerHTML = '<button class="menu-btn" onclick="toggleSidebar()">☰</button><img src="./assets/logo_vaer.png" alt="Logo Empresa" class="logo" />';
+
     const nombreSpan = document.createElement('span');
     nombreSpan.textContent = `👤 ${user.nombre}`;
     nombreSpan.style.marginLeft = 'auto';
