@@ -201,3 +201,5 @@ function mostrarHistorialProduccion() {
 }
 
 // Fin del script actualizado
+
+document.addEventListener('DOMContentLoaded', mostrarLogin);
