@@ -159,8 +159,8 @@ function cargarPagina(pagina) {
           <label for="nombreOperario"><strong>Nombre del Operario:</strong></label><br />
           <select id="nombreOperario" class="input-operario" style="margin-bottom: 1rem; padding: 0.5rem; width: 100%; max-width: 300px;">
             <option value="">Seleccione un nombre</option>
-            <option value="Carlos Pérez">Carlos Pérez</option>
-            <option value="Ana Torres">Ana Torres</option>
+            <option value="Angel Nuñez">Angel Nuñez</option>
+            <option value="Samuel Huarcaya">Samuel Huarcaya</option>
             <option value="Julián Díaz">Julián Díaz</option>
             <option value="Mariana Ruiz">Mariana Ruiz</option>
             <option value="Luciano Gómez">Luciano Gómez</option>
