@@ -200,6 +200,55 @@ function mostrarHistorialProduccion() {
   contenedor.appendChild(historialDiv);
 }
 
+function cargarPagina(pagina) {
+  const contenido = document.getElementById('contenido');
+  let html = '';
+
+  switch (pagina) {
+    case 'operaciones-dashboard':
+      html = generarOrdenTrabajo();
+      break;
+    case 'mantenimiento-dashboard':
+      html = `
+        <h2>Dashboard de Mantenimiento</h2>
+        <div class="cards-container">
+          <div class="card"><h3>Órdenes Abiertas</h3><p class="value">18</p><p class="status warning">En progreso</p></div>
+          <div class="card"><h3>MTTR</h3><p class="value">2.3 h</p><p class="status ok">Dentro del estándar</p></div>
+          <div class="card"><h3>MTBF</h3><p class="value">45 h</p><p class="status ok">Buena fiabilidad</p></div>
+          <div class="card"><h3>Plan Preventivo</h3><p class="value">92%</p><p class="status ok">Cumplido</p></div>
+        </div>
+      `;
+      break;
+    case 'matriceria-dashboard':
+      html = `
+        <h2>Dashboard de Matricería</h2>
+        <div class="cards-container">
+          <div class="card"><h3>Órdenes Activas</h3><p class="value">5</p><p class="status ok">En ejecución</p></div>
+          <div class="card"><h3>Moldes en Mantenimiento</h3><p class="value">2</p><p class="status warning">Intervenciones activas</p></div>
+          <div class="card"><h3>Intervención Próxima</h3><p class="value">1</p><p class="status warning">Por cantidad</p></div>
+        </div>
+      `;
+      break;
+    case 'logistica-dashboard':
+      html = `
+        <h2>Dashboard de Logística e Inventarios</h2>
+        <div class="cards-container">
+          <div class="card"><h3>Materias Primas</h3><p class="value">320</p><p class="status ok">Stock OK</p></div>
+          <div class="card"><h3>Alertas de Reposición</h3><p class="value">4</p><p class="status warning">Atención urgente</p></div>
+          <div class="card"><h3>Órdenes en Proceso</h3><p class="value">6</p><p class="status info">Pendientes</p></div>
+        </div>
+      `;
+      break;
+    default:
+      html = `<h2>${pagina.replace(/-/g, ' ').toUpperCase()}</h2><p>Contenido en construcción para esta sección.</p>`;
+  }
+
+  contenido.innerHTML = html;
+  if (pagina === 'operaciones-dashboard') {
+    setTimeout(configurarChecklist, 0);
+  }
+}
+
 // Fin del script actualizado
 
 document.addEventListener('DOMContentLoaded', mostrarLogin);
