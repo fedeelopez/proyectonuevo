@@ -76,6 +76,23 @@ function filtrarMenuPorArea(area) {
   });
 }
 
+function configurarChecklist() {
+  const btn = document.getElementById('confirmarOrdenBtn');
+  const nombreInput = document.getElementById('nombreOperario');
+  const checkboxes = document.querySelectorAll('.check-item');
+
+  function validar() {
+    const nombre = nombreInput.value;
+    const todosMarcados = Array.from(checkboxes).every(cb => cb.checked);
+    btn.disabled = !(nombre && todosMarcados);
+    btn.classList.toggle('disabled', btn.disabled);
+  }
+
+  nombreInput.addEventListener('change', validar);
+  checkboxes.forEach(cb => cb.addEventListener('change', validar));
+  validar();
+}
+
 function mostrarFormularioProduccion() {
   const contenedor = document.getElementById('contenido');
   const div = document.createElement('div');
@@ -159,8 +176,8 @@ function cargarPagina(pagina) {
           <label for="nombreOperario"><strong>Nombre del Operario:</strong></label><br />
           <select id="nombreOperario" class="input-operario" style="margin-bottom: 1rem; padding: 0.5rem; width: 100%; max-width: 300px;">
             <option value="">Seleccione un nombre</option>
-            <option value="Angel Nuñez">Angel Nuñez</option>
-            <option value="Samuel Huarcaya">Samuel Huarcaya</option>
+            <option value="Carlos Pérez">Carlos Pérez</option>
+            <option value="Ana Torres">Ana Torres</option>
             <option value="Julián Díaz">Julián Díaz</option>
             <option value="Mariana Ruiz">Mariana Ruiz</option>
             <option value="Luciano Gómez">Luciano Gómez</option>
@@ -175,7 +192,6 @@ function cargarPagina(pagina) {
     return;
   }
 
-  // resto de dashboards como antes...
   contenido.innerHTML = html;
 }
 
@@ -192,7 +208,7 @@ function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhats
 
   const timeout = setTimeout(() => {
     alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
-    window.open(`https://wa.me/5491155616045?text=🚨 ${mensajeWhatsApp}`, '_blank');
+    window.open(`https://wa.me/5491134567890?text=🚨 ${mensajeWhatsApp}`, '_blank');
   }, tiempoEspera);
 
   alerta.querySelector('.alerta-ok').addEventListener('click', () => {
