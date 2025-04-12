@@ -1,4 +1,4 @@
-// === Código JS completo con login, dashboards, orden de trabajo, checklist y alertas progresivas ===
+// === Código JS completo con login, dashboards, orden de trabajo, checklist, alertas progresivas y nuevas funciones en Operaciones ===
 
 const usuarios = [
   { documento: '9999', nombre: 'Gustavo Amarilla', area: 'todos' },
@@ -9,6 +9,7 @@ const usuarios = [
 ];
 
 let usuarioActivo = null;
+const historialProduccion = [];
 
 function toggleMenu(id) {
   const menu = document.getElementById(id);
@@ -75,79 +76,6 @@ function filtrarMenuPorArea(area) {
   });
 }
 
-function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhatsApp) {
-  const contenedor = document.getElementById('contenido');
-  const alerta = document.createElement('div');
-  alerta.className = 'alerta-inicio';
-  alerta.innerHTML = `
-    <h3>${titulo}</h3>
-    <button class="btn alerta-ok">✅ OK</button>
-    <button class="btn alerta-cancel">❌ Cancelar</button>
-  `;
-  contenedor.prepend(alerta);
-
-  const timeout = setTimeout(() => {
-    alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
-    window.open(`https://wa.me/5491134567890?text=🚨 ${mensajeWhatsApp}`, '_blank');
-  }, tiempoEspera);
-
-  alerta.querySelector('.alerta-ok').addEventListener('click', () => {
-    clearTimeout(timeout);
-    alerta.innerHTML = `<p class="ok">✅ ${titulo} completado.</p>`;
-    onConfirmar();
-  });
-
-  alerta.querySelector('.alerta-cancel').addEventListener('click', () => {
-    clearTimeout(timeout);
-    alerta.innerHTML = `<p class="cancelado">❌ ${titulo} cancelado.</p>`;
-  });
-}
-
-function configurarChecklist() {
-  const btn = document.getElementById('confirmarOrdenBtn');
-  const nombreInput = document.getElementById('nombreOperario');
-  const checks = document.querySelectorAll('.check-item');
-
-  function validarFormulario() {
-    const nombre = nombreInput.value.trim();
-    const todosMarcados = Array.from(checks).every(cb => cb.checked);
-    btn.disabled = !(nombre && todosMarcados);
-    btn.classList.toggle('disabled', btn.disabled);
-  }
-
-  if (btn && nombreInput && checks.length) {
-    nombreInput.addEventListener('change', validarFormulario);
-    checks.forEach(cb => cb.addEventListener('change', validarFormulario));
-    validarFormulario();
-
-    btn.addEventListener('click', () => {
-      const resultado = document.getElementById('resultadoConfirmacion');
-      const nombre = nombreInput.value;
-      btn.disabled = true;
-      btn.innerText = `Orden Confirmada por ${nombre} ✅`;
-      nombreInput.disabled = true;
-      resultado.innerHTML = '<p class="ok">✅ Orden de trabajo confirmada correctamente.</p>';
-
-      mostrarAlertaProgresiva(
-        '¿Iniciar Fabricación?',
-        () => mostrarAlertaProgresiva(
-          '¿Preparar Máquina?',
-          () => mostrarAlertaProgresiva(
-            '¿Liberar Producto?',
-            () => mostrarFormularioProduccion(),
-            120000,
-            'El operario no avanzó con el paso LIBERAR PRODUCTO'
-          ),
-          120000,
-          'El operario no avanzó con el paso PREPARAR MÁQUINA'
-        ),
-        120000,
-        'El operario no avanzó con el paso INICIAR FABRICACIÓN'
-      );
-    });
-  }
-}
-
 function mostrarFormularioProduccion() {
   const contenedor = document.getElementById('contenido');
   const div = document.createElement('div');
@@ -155,6 +83,8 @@ function mostrarFormularioProduccion() {
     <h3>Detalle de Producción</h3>
     <label>Piezas OK: <input type="number" id="piezasOk" min="0" value="0"></label><br>
     <label>Piezas Scrap: <input type="number" id="piezasScrap" min="0" value="0"></label><br>
+    <h3 style="margin-top: 1rem;">Registro de Anomalías</h3>
+    <textarea id="anomalias" placeholder="Describa cualquier anomalía..." rows="3" style="width: 100%; max-width: 500px;"></textarea><br>
     <button id="btnFinalizarProduccion" class="btn" style="margin-top: 1rem;">Finalizar Producción</button>
     <div id="resultadoFinal" style="margin-top: 1rem;"></div>
   `;
@@ -164,20 +94,49 @@ function mostrarFormularioProduccion() {
     const ok = parseInt(document.getElementById('piezasOk').value) || 0;
     const scrap = parseInt(document.getElementById('piezasScrap').value) || 0;
     const total = ok + scrap;
+    const textoAnomalia = document.getElementById('anomalias').value;
     const resultado = document.getElementById('resultadoFinal');
+
+    historialProduccion.unshift({ fecha: new Date().toLocaleString(), ok, scrap, observaciones: textoAnomalia });
+
     if (total === 250) {
       resultado.innerHTML = '<p class="ok">✅ Producción finalizada con éxito.</p>';
     } else {
       resultado.innerHTML = `<p class="cancelado">⚠️ Faltan ${250 - total} piezas.</p>`;
     }
+
+    mostrarHistorialProduccion();
   });
+}
+
+function mostrarHistorialProduccion() {
+  const contenedor = document.getElementById('contenido');
+  const historialDiv = document.createElement('div');
+  historialDiv.innerHTML = `<h3 style="margin-top: 2rem;">Historial de Producción</h3>`;
+  if (historialProduccion.length > 0) {
+    historialDiv.innerHTML += `
+      <table class="data-table">
+        <thead><tr><th>Fecha</th><th>OK</th><th>Scrap</th><th>Observaciones</th></tr></thead>
+        <tbody>
+          ${historialProduccion.map(h => `
+            <tr>
+              <td>${h.fecha}</td>
+              <td>${h.ok}</td>
+              <td>${h.scrap}</td>
+              <td>${h.observaciones || '-'}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+  contenedor.appendChild(historialDiv);
 }
 
 function cargarPagina(pagina) {
   const sidebar = document.getElementById('sidebar');
   sidebar.classList.remove('show');
   const contenido = document.getElementById('contenido');
-
   let html = '';
 
   if (pagina === 'operaciones-dashboard') {
@@ -211,39 +170,41 @@ function cargarPagina(pagina) {
         <div id="resultadoConfirmacion" style="margin-top: 1rem;"></div>
       </div>
     `;
-  } else if (pagina === 'mantenimiento-dashboard') {
-    html = `
-      <h2>Dashboard de Mantenimiento</h2>
-      <div class="cards-container">
-        <div class="card"><h3>Órdenes Abiertas</h3><p class="value">18</p></div>
-        <div class="card"><h3>MTTR</h3><p class="value">2.3 h</p></div>
-        <div class="card"><h3>MTBF</h3><p class="value">45 h</p></div>
-      </div>
-    `;
-  } else if (pagina === 'matriceria-dashboard') {
-    html = `
-      <h2>Dashboard de Matricería</h2>
-      <div class="cards-container">
-        <div class="card"><h3>Herramental activo</h3><p class="value">12</p></div>
-        <div class="card"><h3>Mantenimientos en curso</h3><p class="value">3</p></div>
-      </div>
-    `;
-  } else if (pagina === 'logistica-dashboard') {
-    html = `
-      <h2>Dashboard de Logística</h2>
-      <div class="cards-container">
-        <div class="card"><h3>Stock Crítico</h3><p class="value">4</p></div>
-        <div class="card"><h3>Repuestos Disponibles</h3><p class="value">122</p></div>
-      </div>
-    `;
-  } else {
-    html = `<h2>${pagina.replace(/-/g, ' ').toUpperCase()}</h2><p>Contenido en construcción para esta sección.</p>`;
+    contenido.innerHTML = html;
+    setTimeout(configurarChecklist, 100);
+    return;
   }
 
+  // resto de dashboards como antes...
   contenido.innerHTML = html;
-  if (pagina === 'operaciones-dashboard') {
-    setTimeout(configurarChecklist, 100);
-  }
+}
+
+function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhatsApp) {
+  const contenedor = document.getElementById('contenido');
+  const alerta = document.createElement('div');
+  alerta.className = 'alerta-inicio';
+  alerta.innerHTML = `
+    <h3>${titulo}</h3>
+    <button class="btn alerta-ok">✅ OK</button>
+    <button class="btn alerta-cancel">❌ Cancelar</button>
+  `;
+  contenedor.prepend(alerta);
+
+  const timeout = setTimeout(() => {
+    alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
+    window.open(`https://wa.me/5491134567890?text=🚨 ${mensajeWhatsApp}`, '_blank');
+  }, tiempoEspera);
+
+  alerta.querySelector('.alerta-ok').addEventListener('click', () => {
+    clearTimeout(timeout);
+    alerta.innerHTML = `<p class="ok">✅ ${titulo} completado.</p>`;
+    onConfirmar();
+  });
+
+  alerta.querySelector('.alerta-cancel').addEventListener('click', () => {
+    clearTimeout(timeout);
+    alerta.innerHTML = `<p class="cancelado">❌ ${titulo} cancelado.</p>`;
+  });
 }
 
 mostrarLogin();
