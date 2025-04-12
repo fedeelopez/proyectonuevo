@@ -173,7 +173,7 @@ function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhats
 
     const timeout = setTimeout(() => {
     alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
-    window.open(`https://wa.me/5491134567890?text=🚨 ${mensajeWhatsApp}`, '_blank');
+    window.open(`https://wa.me/5491155616045?text=🚨 ${mensajeWhatsApp}`, '_blank');
   }, tiempoEspera);
 
   alerta.querySelector('.alerta-ok').addEventListener('click', () => {
