@@ -173,7 +173,7 @@ function mostrarAlertaProgresiva(titulo, onConfirmar, tiempoEspera, mensajeWhats
 
     const timeout = setTimeout(() => {
     alerta.innerHTML += `<p class="cancelado">⚠️ No se completó a tiempo.</p>`;
-    window.open(`https://wa.me/5491155616045?text=🚨 ${mensajeWhatsApp}`, '_blank');
+    window.location.href = `https://wa.me/5491155616045?text=🚨 ${mensajeWhatsApp}`;
   }, tiempoEspera);
 
   alerta.querySelector('.alerta-ok').addEventListener('click', () => {
@@ -271,7 +271,6 @@ function generarPDFProduccion() {
     doc.save("detalle-produccion.pdf");
   };
 }
-
 
 function cargarPagina(pagina) {
   const contenido = document.getElementById('contenido');
