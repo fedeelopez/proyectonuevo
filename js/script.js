@@ -148,13 +148,13 @@ function configurarChecklist() {
         () => mostrarAlertaProgresiva(
           '¿Liberar producto?',
           () => mostrarFormularioProduccion(),
-          60000,
+          20000,
           'El operario no avanzó con el paso LIBERAR PRODUCTO'
         ),
-        60000,
+        20000,
         'El operario no avanzó con el paso PREPARAR LA MÁQUINA'
       ),
-      60000,
+      20000,
       'El operario no avanzó con el paso INICIAR FABRICACIÓN'
     );
   });
