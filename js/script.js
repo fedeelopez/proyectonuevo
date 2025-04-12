@@ -251,20 +251,25 @@ function generarPDFProduccion() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
-  doc.setFontSize(18);
-  doc.text("Detalle de Producción", 20, 20);
+  const logo = new Image();
+  logo.src = './assets/logo_vaer.png';
+  logo.onload = () => {
+    doc.addImage(logo, 'PNG', 160, 10, 30, 15);
+    doc.setFontSize(18);
+    doc.text("Detalle de Producción", 20, 20);
 
-  doc.setFontSize(12);
-  let y = 35;
-  historialProduccion.forEach((item, i) => {
-    doc.text(`Fecha: ${item.fecha}`, 20, y);
-    doc.text(`Piezas OK: ${item.ok}`, 20, y + 10);
-    doc.text(`Scrap: ${item.scrap}`, 20, y + 20);
-    doc.text(`Observaciones: ${item.observaciones || '-'}`, 20, y + 30);
-    y += 45;
-  });
+    doc.setFontSize(12);
+    let y = 35;
+    historialProduccion.forEach((item, i) => {
+      doc.text(`Fecha: ${item.fecha}`, 20, y);
+      doc.text(`Piezas OK: ${item.ok}`, 20, y + 10);
+      doc.text(`Scrap: ${item.scrap}`, 20, y + 20);
+      doc.text(`Observaciones: ${item.observaciones || '-'}`, 20, y + 30);
+      y += 45;
+    });
 
-  doc.save("detalle-produccion.pdf");
+    doc.save("detalle-produccion.pdf");
+  };
 }
 
 
